@@ -1,10 +1,13 @@
 package com.colruytgroup.designation.controller.api;
 
 import com.colruytgroup.designation.model.dto.EmployeeDto;
+import com.colruytgroup.designation.model.dto.FutureDesignationDto;
 import com.colruytgroup.designation.model.dto.UpdateEmployeeDto;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping(value = "/designationsvc/employees")
 public interface EmployeeApiController {
@@ -21,4 +24,6 @@ public interface EmployeeApiController {
     @DeleteMapping(value = "/delete_employee/{id}")
     ResponseEntity<Void> deleteEmployee(@PathVariable String id);
 
+    @GetMapping(value = "/future_designations/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<List<FutureDesignationDto>> getFutureDesignations(@PathVariable String id);
 }

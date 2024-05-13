@@ -4,12 +4,15 @@ import com.colruytgroup.designation.controller.api.EmployeeApiController;
 import com.colruytgroup.designation.exception.EmployeeNotFoundException;
 import com.colruytgroup.designation.mapper.EmployeeMapper;
 import com.colruytgroup.designation.model.dto.EmployeeDto;
+import com.colruytgroup.designation.model.dto.FutureDesignationDto;
 import com.colruytgroup.designation.model.dto.UpdateEmployeeDto;
 import com.colruytgroup.designation.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,5 +43,10 @@ public class EmployeeController implements EmployeeApiController {
     public ResponseEntity<Void> deleteEmployee(String id) {
         employeeService.deleteEmployee(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @Override
+    public ResponseEntity<List<FutureDesignationDto>> getFutureDesignations(String id) {
+        return new ResponseEntity<>(employeeMapper.map(employeeService.getFutureDesignations(id)), HttpStatus.OK);
     }
 }

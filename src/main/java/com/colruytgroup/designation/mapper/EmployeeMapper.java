@@ -1,6 +1,7 @@
 package com.colruytgroup.designation.mapper;
 
 import com.colruytgroup.designation.model.dto.EmployeeDto;
+import com.colruytgroup.designation.model.dto.FutureDesignationDto;
 import com.colruytgroup.designation.model.entity.DefaultOptionEntity;
 import com.colruytgroup.designation.model.entity.EmployeeEntity;
 import com.colruytgroup.designation.model.entity.FutureDesignationEntity;
@@ -20,7 +21,9 @@ public interface EmployeeMapper {
 
     DefaultDesignationVo map(DefaultOptionEntity defaultOptionEntity);
 
-    @Mapping(target = "currentDesignation.id",source = "employeeEntity.designationId")
-    @Mapping(target = "currentDesignation.name",source = "employeeEntity.currentDesignationName")
+    List<FutureDesignationDto> map(List<FutureDesignationVo> futureDesignations);
+
+    @Mapping(target = "currentDesignation.id", source = "employeeEntity.designationId")
+    @Mapping(target = "currentDesignation.name", source = "employeeEntity.currentDesignationName")
     EmployeeVo map(EmployeeEntity employeeEntity, List<FutureDesignationVo> futureOptions, List<DefaultDesignationVo> defaultOptions);
 }

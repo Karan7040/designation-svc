@@ -64,6 +64,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.delete(id);
     }
 
+    @Override
+    public List<FutureDesignationVo> getFutureDesignations(String id) {
+        EmployeeEntity employeeEntity = employeeRepository.getEmployeeById(id).orElseThrow(EmployeeNotFoundException::new);
+        return futureDesignationRepository.getFutureDesignation(employeeEntity.getFutureDesignationOpt1(), employeeEntity.getFutureDesignationOpt2())
+                .stream().map(employeeMapper::map).toList();
+    }
+
     private EmployeeVo fetchEmployeeDetails(EmployeeEntity employeeEntity) {
         List<FutureDesignationVo> futureDesignationOptions = futureDesignationRepository.getFutureDesignation(employeeEntity.getFutureDesignationOpt1(), employeeEntity.getFutureDesignationOpt2())
                 .stream().map(employeeMapper::map).toList();
