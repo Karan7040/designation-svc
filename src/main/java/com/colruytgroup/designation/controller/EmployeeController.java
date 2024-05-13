@@ -35,4 +35,10 @@ public class EmployeeController implements EmployeeApiController {
         employeeService.updateEmployeeName(id, firstName, lastName);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @Override
+    public ResponseEntity<Void> deleteEmployee(String id) {
+        employeeService.deleteEmployee(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

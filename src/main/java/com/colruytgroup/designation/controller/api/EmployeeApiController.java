@@ -17,4 +17,8 @@ public interface EmployeeApiController {
 
     @PutMapping(value = "/update_employee_name/{id}")
     ResponseEntity<Void> updateEmployeeName(@PathVariable String id, @RequestParam String firstName, @RequestParam String lastName);
+
+    @DeleteMapping(value = "/delete_employee/{id}")
+    ResponseEntity<Void> deleteEmployee(@PathVariable String id);
+
 }
