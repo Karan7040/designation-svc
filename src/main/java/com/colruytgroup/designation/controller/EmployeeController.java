@@ -4,6 +4,7 @@ import com.colruytgroup.designation.controller.api.EmployeeApiController;
 import com.colruytgroup.designation.exception.EmployeeNotFoundException;
 import com.colruytgroup.designation.mapper.EmployeeMapper;
 import com.colruytgroup.designation.model.dto.EmployeeDto;
+import com.colruytgroup.designation.model.dto.UpdateEmployeeDto;
 import com.colruytgroup.designation.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,5 +22,11 @@ public class EmployeeController implements EmployeeApiController {
         return new ResponseEntity<>(employeeService.getEmployeeById(employeeId)
                 .map(employeeMapper::map)
                 .orElseThrow(EmployeeNotFoundException::new), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> updateEmployee(UpdateEmployeeDto updateEmployeeDto) {
+        employeeService.updateEmployee(updateEmployeeDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

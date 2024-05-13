@@ -1,6 +1,9 @@
 package com.colruytgroup.designation.service.impl;
 
+import com.colruytgroup.designation.exception.EmployeeNotFoundException;
+import com.colruytgroup.designation.exception.SurveyAlreadyFilledException;
 import com.colruytgroup.designation.mapper.EmployeeMapper;
+import com.colruytgroup.designation.model.dto.UpdateEmployeeDto;
 import com.colruytgroup.designation.model.entity.EmployeeEntity;
 import com.colruytgroup.designation.model.vo.DefaultDesignationVo;
 import com.colruytgroup.designation.model.vo.EmployeeVo;
@@ -10,6 +13,7 @@ import com.colruytgroup.designation.repository.EmployeeRepository;
 import com.colruytgroup.designation.repository.FutureDesignationRepository;
 import com.colruytgroup.designation.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +31,22 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Optional<EmployeeVo> getEmployeeById(String employeeId) {
         return employeeRepository.getEmployeeById(employeeId)
                 .map(this::fetchEmployeeDetails);
+    }
+
+    @Override
+    public void updateEmployee(UpdateEmployeeDto updateEmployee) {
+        EmployeeEntity employeeEntity = employeeRepository.getEmployeeById(updateEmployee.getId())
+                .orElseThrow(EmployeeNotFoundException::new);
+        if (employeeEntity.isSurveyStatus()) {
+            throw new SurveyAlreadyFilledException();
+        }
+        if (ObjectUtils.allNull(updateEmployee.getDefaultOptionId(), updateEmployee.getFutureDesignationId())
+                || ObjectUtils.allNotNull(updateEmployee.getFutureDesignationId(), updateEmployee.getDefaultOptionId())) {
+            throw new IllegalArgumentException("Please fill one & only one option");
+        }
+        employeeEntity.setSelectedDefaultOption(updateEmployee.getDefaultOptionId());
+        employeeEntity.setSelectedFutureDesignation(updateEmployee.getFutureDesignationId());
+        employeeRepository.update(employeeEntity);
     }
 
     private EmployeeVo fetchEmployeeDetails(EmployeeEntity employeeEntity) {

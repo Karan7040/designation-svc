@@ -28,4 +28,20 @@ public class EmployeeRepository {
                 .stream().findFirst();
     }
 
+    public void update(EmployeeEntity employeeEntity) {
+        SqlParameterSource parameterSource = new MapSqlParameterSource()
+                .addValue("employeeId", employeeEntity.getId())
+                .addValue("firstName", employeeEntity.getFirstName())
+                .addValue("lastName", employeeEntity.getLastName())
+                .addValue("currentDesignation", employeeEntity.getDesignationId())
+                .addValue("surveyStatus", "Y")
+                .addValue("futureDesignationId", employeeEntity.getSelectedFutureDesignation())
+                .addValue("defaultDesignationId", employeeEntity.getSelectedDefaultOption());
+        namedParameterJdbcTemplate.update("""
+                UPDATE DSVC_EMPLOYEE SET ID=:employeeId, FIRST_NAME=:firstName,
+                LAST_NAME=:lastName, CUR_DESIGNATION=:currentDesignation, SURVEY_STATUS=:surveyStatus,
+                FTR_DESIGNATION=:futureDesignationId, NONDSGN_OPTION=:defaultDesignationId WHERE
+                ID=:employeeId;
+                """, parameterSource);
+    }
 }
