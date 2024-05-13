@@ -10,4 +10,6 @@ public interface EmployeeService {
     Optional<EmployeeVo> getEmployeeById(String employeeId);
 
     void updateEmployee(UpdateEmployeeDto updateEmployee);
+
+    void updateEmployeeName(String id, String firstName, String lastName);
 }

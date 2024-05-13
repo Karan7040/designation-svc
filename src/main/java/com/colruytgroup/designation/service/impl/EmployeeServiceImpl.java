@@ -46,6 +46,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         employeeEntity.setSelectedDefaultOption(updateEmployee.getDefaultOptionId());
         employeeEntity.setSelectedFutureDesignation(updateEmployee.getFutureDesignationId());
+        employeeEntity.setSurveyStatus(true);
+        employeeRepository.update(employeeEntity);
+    }
+
+    @Override
+    public void updateEmployeeName(String id, String firstName, String lastName) {
+        EmployeeEntity employeeEntity = employeeRepository.getEmployeeById(id).orElseThrow(EmployeeNotFoundException::new);
+        employeeEntity.setFirstName(firstName);
+        employeeEntity.setLastName(lastName);
         employeeRepository.update(employeeEntity);
     }
 

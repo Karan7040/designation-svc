@@ -12,6 +12,9 @@ public interface EmployeeApiController {
     @GetMapping(value = "/{employeeId}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<EmployeeDto> getEmployee(@PathVariable String employeeId);
 
-    @PutMapping(value = "/update_employee", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/update_employee", consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Void> updateEmployee(@RequestBody UpdateEmployeeDto updateEmployeeDto);
+
+    @PutMapping(value = "/update_employee_name/{id}")
+    ResponseEntity<Void> updateEmployeeName(@PathVariable String id, @RequestParam String firstName, @RequestParam String lastName);
 }

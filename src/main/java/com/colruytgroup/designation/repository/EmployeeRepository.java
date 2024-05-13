@@ -1,6 +1,7 @@
 package com.colruytgroup.designation.repository;
 
 import com.colruytgroup.designation.model.entity.EmployeeEntity;
+import com.colruytgroup.designation.model.enums.Indicator;
 import com.colruytgroup.designation.repository.rowmapper.EmployeeRowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -34,7 +35,7 @@ public class EmployeeRepository {
                 .addValue("firstName", employeeEntity.getFirstName())
                 .addValue("lastName", employeeEntity.getLastName())
                 .addValue("currentDesignation", employeeEntity.getDesignationId())
-                .addValue("surveyStatus", "Y")
+                .addValue("surveyStatus", Indicator.convertToString(employeeEntity.isSurveyStatus()))
                 .addValue("futureDesignationId", employeeEntity.getSelectedFutureDesignation())
                 .addValue("defaultDesignationId", employeeEntity.getSelectedDefaultOption());
         namedParameterJdbcTemplate.update("""
