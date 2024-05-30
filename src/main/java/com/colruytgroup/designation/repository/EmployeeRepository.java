@@ -46,7 +46,7 @@ public class EmployeeRepository {
                 """, parameterSource);
     }
 
-    public void delete(String id) {
+    public void deleteById(String id) {
         SqlParameterSource parameterSource = new MapSqlParameterSource()
                 .addValue("employeeId", id);
         namedParameterJdbcTemplate.update("DELETE FROM DSVC_EMPLOYEE WHERE ID=:employeeId;", parameterSource);

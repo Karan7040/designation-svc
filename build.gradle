@@ -23,6 +23,7 @@ dependencies {
 	implementation 'com.h2database:h2:2.2.224'
 	implementation 'org.mapstruct:mapstruct:1.6.0.Beta2'
 	implementation 'org.apache.commons:commons-lang3:3.14.0'
+	implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
 
 	annotationProcessor 'org.projectlombok:lombok:1.18.32'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.0.Beta2'
@@ -30,6 +31,3 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
