@@ -22,7 +22,7 @@ public class FutureDesignationRepository {
                 .addValue("optionTwo", futureOptionTwo);
         return namedParameterJdbcTemplate.query("""
                 SELECT * FROM DSVC_FTR_DESIGNATIONS
-                WHERE FTR_DESIGNATION_ID IN (:optionOne,:optionTwo);
+                WHERE FTR_DESIGNATION_ID IN (:optionOne,:optionTwo)
                 """, parameterSource, new FutureDesignationRowMapper());
     }
 }

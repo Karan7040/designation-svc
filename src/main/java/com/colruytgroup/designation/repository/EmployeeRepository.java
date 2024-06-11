@@ -24,7 +24,7 @@ public class EmployeeRepository {
                                 SELECT *
                                 FROM  DSVC_EMPLOYEE e
                                 JOIN DSVC_DESIGNATIONS d ON e.CUR_DESIGNATION = d.DESIGNATION_ID
-                                WHERE E.ID=:employeeId;
+                                WHERE e.ID=:employeeId
                                 """, parameterSource, new EmployeeRowMapper())
                 .stream().findFirst();
     }
@@ -42,13 +42,13 @@ public class EmployeeRepository {
                 UPDATE DSVC_EMPLOYEE SET ID=:employeeId, FIRST_NAME=:firstName,
                 LAST_NAME=:lastName, CUR_DESIGNATION=:currentDesignation, SURVEY_STATUS=:surveyStatus,
                 FTR_DESIGNATION=:futureDesignationId, NONDSGN_OPTION=:defaultDesignationId WHERE
-                ID=:employeeId;
+                ID=:employeeId
                 """, parameterSource);
     }
 
     public void deleteById(String id) {
         SqlParameterSource parameterSource = new MapSqlParameterSource()
                 .addValue("employeeId", id);
-        namedParameterJdbcTemplate.update("DELETE FROM DSVC_EMPLOYEE WHERE ID=:employeeId;", parameterSource);
+        namedParameterJdbcTemplate.update("DELETE FROM DSVC_EMPLOYEE WHERE ID=:employeeId", parameterSource);
     }
 }
